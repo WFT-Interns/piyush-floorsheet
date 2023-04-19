@@ -18,7 +18,7 @@ public class MyController : ControllerBase
                 return BadRequest("Please select a file to upload.");
 
             // Check if the file is a XLS file
-            if (!file.FileName.EndsWith(".xls"))
+            if (!file.FileName.EndsWith(".xls") || file.FileName.EndsWith(".xlsx"))
                 return BadRequest("Please upload a XLS file.");
 
             // Create a unique filename to store the file
