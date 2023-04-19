@@ -13,21 +13,23 @@ public class MyController : ControllerBase
     {
         try
         {
-            // Check if the file exists
-            if (file == null || file.Length == 0)
+
+            if (file is null || file.Length == 0)
                 return BadRequest("Please select a file to upload.");
 
-            // Check if the file is a XLS file
-            if (!file.FileName.EndsWith(".xls") || file.FileName.EndsWith(".xlsx"))
+            // Check if the file is a XLS or xlsx file
+            if (!file.FileName.EndsWith(".xlsx") && !file.FileName.EndsWith(".xls"))
                 return BadRequest("Please upload a XLS file.");
 
             // Create a unique filename to store the file
-            var fileName = Guid.NewGuid().ToString() + ".xls";
+            var fileName = "floorsheet" + DateTime.Today.ToFileTime().ToString() + ".xlsx";
 
             // Create the file path
             var homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             var filePath = Path.Combine(homeDir, "Documents/floor-sheet/public", fileName);
+            Console.WriteLine(filePath);
 
+            return BadRequest("Please upload a XLS file.");
 
             // Copy the file to the server
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -40,6 +42,7 @@ public class MyController : ControllerBase
         }
         catch (Exception ex)
         {
+
             // Return an error response if an exception occurs
             return StatusCode(500, $"Internal server error: {ex}");
 
