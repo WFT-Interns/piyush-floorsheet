@@ -26,7 +26,7 @@ public class MyController : ControllerBase
 
             // Create the file path
             var homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var filePath = Path.Combine(homeDir, "Documents", fileName);
+            var filePath = Path.Combine(homeDir, "Documents/floor-sheet/public", fileName);
 
 
             // Copy the file to the server
@@ -42,6 +42,7 @@ public class MyController : ControllerBase
         {
             // Return an error response if an exception occurs
             return StatusCode(500, $"Internal server error: {ex}");
+
         }
     }
 
